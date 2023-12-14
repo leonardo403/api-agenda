@@ -1,0 +1,29 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger with Laravel",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/agendas": {
+            "post": {
+                "summary": "Lista das agendas cadastradas",
+                "operationId": "66cb1c1ba9be9276ce492c35aab95669",
+                "responses": {
+                    "201": {
+                        "description": "Retorna listagem de agendas"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
