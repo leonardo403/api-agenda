@@ -25,9 +25,9 @@ class AgendaRequest extends FormRequest
     {
 
         return [
-            'data_inicio' => 'date|required|unique:agendas,data_inicio',
-            'data_prazo'  => 'date|required',
-            'data_conclusao' => 'date|required',
+            'data_inicio' => 'required|date_format:Y-m-d H:i:s|unique:agendas,data_inicio',
+            'data_prazo'  => 'required|date_format:Y-m-d H:i:s',
+            'data_conclusao' => 'required|date_format:Y-m-d H:i:s',
             'status' => 'required|string',
             'titulo' => 'required|string|unique:agendas,titulo',
             'tipo' => 'required|string',

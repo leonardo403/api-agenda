@@ -6,12 +6,139 @@
     },
     "paths": {
         "/api/v1/agendas": {
-            "post": {
+            "get": {
                 "summary": "Lista das agendas cadastradas",
-                "operationId": "66cb1c1ba9be9276ce492c35aab95669",
+                "operationId": "d94c28ede11f8fd7211471b9b0b20507",
                 "responses": {
                     "201": {
                         "description": "Retorna listagem de agendas"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cadastro de agenda",
+                "operationId": "9e81600014e6a9d0f734db1c5c6ac345",
+                "parameters": [
+                    {
+                        "name": "AgendaRequest",
+                        "in": "query",
+                        "description": "Criar uma agenda",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna Agenda criada com sucesso!"
+                    },
+                    "400": {
+                        "description": "Cadastro não realizado."
+                    }
+                }
+            }
+        },
+        "/api/v1/agendas/{agenda_id}": {
+            "get": {
+                "summary": "Retorna uma agenda cadastrada.",
+                "operationId": "5593a626b30714ea7001de04a2edb701",
+                "parameters": [
+                    {
+                        "name": "agenda_id",
+                        "in": "query",
+                        "description": "Seleciona apenas uma agenda",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna uma Agenda!"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta uma agenda",
+                "operationId": "de1210247df05b5568d6342c2fb9ea35",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id de uma agenda",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Agenda foi removida!"
+                    },
+                    "400": {
+                        "description": "Não foi removida."
+                    }
+                }
+            }
+        },
+        "/api/v1/agendas/": {
+            "put": {
+                "summary": "Atualiza uma agenda",
+                "operationId": "e644b26c62e34fe74b2228e305451439",
+                "parameters": [
+                    {
+                        "name": "AgendaRequest",
+                        "in": "query",
+                        "description": "Criar uma agenda",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id de uma agenda",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna que agenda foi atualizada com sucesso!"
+                    },
+                    "400": {
+                        "description": "Não foi atualizado."
+                    }
+                }
+            }
+        },
+        "/api/v1/agendas/rangeData": {
+            "get": {
+                "summary": "Relaizar um range de data.",
+                "operationId": "d738baea644ee2264e4017e2c049fc98",
+                "parameters": [
+                    {
+                        "name": "AgendaRequest",
+                        "in": "query",
+                        "description": "Listar a agenda em um range de data",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna que agenda foi atualizada com sucesso!"
+                    },
+                    "400": {
+                        "description": "Não foi atualizado."
                     }
                 }
             }
