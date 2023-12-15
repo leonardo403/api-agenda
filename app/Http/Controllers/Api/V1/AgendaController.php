@@ -16,6 +16,12 @@ use Illuminate\Database\Eloquent\Builder;
 class AgendaController extends Controller
 {
     use HttpResponse;
+
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum', 'ability:agenda-store,agenda-cad'])->only(['store','update','destroy']);
+    }
+
     /**
      * @OA\Get(
      *     path="/api/v1/agendas",
@@ -45,6 +51,10 @@ class AgendaController extends Controller
      */
     public function store(AgendaRequest $request)
     {
+        if (!auth()->user()->tokenCan('agenda-store')) {
+            return $this->error('Não autorizado', HttpStatusCode::HTTP_FORBIDDEN);
+        }
+
         try {
 
         $agenda = Agenda::create($request->all());
