@@ -31,3 +31,7 @@ php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
 `
 php artisan l5-swagger:generate
 `
+#### Acessar documentasção
+`
+URL: http://127.0.0.1:8000/api/documentation
+`

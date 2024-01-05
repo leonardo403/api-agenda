@@ -8,18 +8,17 @@ use App\Http\Resources\V1\AgendaResource;
 use App\Models\Agenda;
 use App\Traits\HttpResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
-
+use App\Services\AgendaService;
 class AgendaController extends Controller
 {
     use HttpResponse;
+    protected $agendaService;
 
-    public function __construct()
+    public function __construct(AgendaService $agendaService)
     {
-        $this->middleware(['auth:sanctum', 'ability:agenda-store,agenda-cad'])->only(['store','update','destroy']);
+        $this->middleware('auth:sanctum' )->only(['store','update','destroy']);
+        $this->agendaService = $agendaService;
     }
 
     /**
@@ -52,7 +51,7 @@ class AgendaController extends Controller
     public function store(AgendaRequest $request)
     {
         if (!auth()->user()->tokenCan('agenda-store')) {
-            return $this->error('Não autorizado', HttpStatusCode::HTTP_FORBIDDEN);
+            return $this->error('Não autorizado', HttpStatusCode::HTTP_FORBIDDEN, $request);
         }
 
         try {
@@ -80,9 +79,9 @@ class AgendaController extends Controller
      *   @OA\Response(response="200", description="Retorna uma Agenda!")
      *   )
      */
-    public function show($agenda_id)
+    public function showAgenda($agenda_id)
     {
-        return Agenda::findOrFail($agenda_id);
+        return $this->agendaService->showAgenda($agenda_id);
     }
 
     /**
@@ -139,7 +138,8 @@ class AgendaController extends Controller
 
         $agenda = Agenda::findOrFail($id);
         $agenda->delete();
-        return response()->json('Agenda foi removida!',HttpStatusCode::HTTP_NO_CONTENT);
+        return response()->json([
+            "message" => "Agenda foi removida!"],HttpStatusCode::HTTP_NO_CONTENT);
 
     } catch (\Exception $ex) {
             return $ex->getMessage().' - '.HttpStatusCode::HTTP_BAD_REQUEST;

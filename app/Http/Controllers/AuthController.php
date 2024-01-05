@@ -17,14 +17,15 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->only('email','password'))) {
             return $this->response('Authorized', HttpStatusCode::HTTP_OK,[
-                'token' => $request->user()->createToken('Agenda', ['agenda-store'])->plainTextToken
+                'token' => $request->user()->createToken('Agenda')->plainTextToken
             ]);
         }
         return $this->response('Not Authorized', HttpStatusCode::HTTP_FORBIDDEN);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        # code...
+        $request->user()->currentAccessToken()->delete();
+        return $this->response('Token Revoked', HttpStatusCode::HTTP_OK);
     }
 }
