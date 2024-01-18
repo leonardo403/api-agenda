@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Agenda;
 use App\Repositories\AgendaRepository;
-
+use App\Repositories\AgendaRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(AgendaRepository::class, function ($app) {
+        $this->app->bind(AgendaRepositoryInterface::class, function ($app) {
             return new AgendaRepository(new Agenda());
         });
     }

@@ -17,6 +17,7 @@ class AgendaResource extends JsonResource
         return [
             'agenda' => [
                 'Id' => $this->id,
+                'titulo' => $this->titulo,
                 'data_inicio' => $this->data_inicio,
                 'data_prazo' => $this->data_prazo,
                 'descricao' => $this->descricao,

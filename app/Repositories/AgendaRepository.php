@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Models\Agenda;
 use App\Http\Requests\AgendaRequest;
 use App\Http\Resources\V1\AgendaResource;
-use Illuminate\Http\Request;
 use App\Traits\HttpResponse;
 use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
 
@@ -64,7 +63,7 @@ class AgendaRepository implements AgendaRepositoryInterface
         $agenda = Agenda::findOrFail($agenda_id);
         $agenda->delete();
         return response()->json([
-            "message" => "Agenda foi removida!"],HttpStatusCode::HTTP_NO_CONTENT);
+            "message" => "Agenda foi removida!"],HttpStatusCode::HTTP_OK);
 
     } catch (\Exception $ex) {
             return $ex->getMessage().' - '.HttpStatusCode::HTTP_BAD_REQUEST;

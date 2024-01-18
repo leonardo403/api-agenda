@@ -48,21 +48,9 @@ class AgendaController extends Controller
      *   @OA\Response(response="400", description="Cadastro não realizado.")
      *   )
      */
-    public function store(AgendaRequest $request)
+    public function createAgenda(AgendaRequest $request)
     {
-        if (!auth()->user()->tokenCan('agenda-store')) {
-            return $this->error('Não autorizado', HttpStatusCode::HTTP_FORBIDDEN, $request);
-        }
-
-        try {
-
-        $agenda = Agenda::create($request->all());
-        return response()->json('Agenda criada com sucesso!', HttpStatusCode::HTTP_OK);
-
-        } catch (\Exception $ex) {
-            return $ex->getMessage().' - '.HttpStatusCode::HTTP_BAD_REQUEST;
-        }
-
+        return $this->agendaService->createAgenda($request);
     }
 
     /**
@@ -106,15 +94,9 @@ class AgendaController extends Controller
      *   @OA\Response(response="400", description="Não foi atualizado.")
      *   )
      */
-    public function update(Request $request, int $id)
+    public function updateAgenda(AgendaRequest $request, int $agenda_id)
     {
-        try {
-            $agenda = Agenda::findOrFail($id);
-            $agenda->update($request->all());
-            return response()->json('Agenda atualizada com sucesso!', HttpStatusCode::HTTP_OK);
-        } catch (\Exception $ex) {
-            return $ex->getMessage().' - '.HttpStatusCode::HTTP_BAD_REQUEST;
-        }
+        return $this->agendaService->updateAgenda($request, $agenda_id);
     }
 
     /**
@@ -132,18 +114,9 @@ class AgendaController extends Controller
      *   @OA\Response(response="400", description="Não foi removida.")
      *   )
      */
-    public function destroy(int $id)
+    public function deleteAgenda(int $agenda_id)
     {
-        try {
-
-        $agenda = Agenda::findOrFail($id);
-        $agenda->delete();
-        return response()->json([
-            "message" => "Agenda foi removida!"],HttpStatusCode::HTTP_NO_CONTENT);
-
-    } catch (\Exception $ex) {
-            return $ex->getMessage().' - '.HttpStatusCode::HTTP_BAD_REQUEST;
-        }
+        return $this->agendaService->deleteAgenda($agenda_id);
     }
 
     /**

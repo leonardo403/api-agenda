@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Repositories\AgendaRepository;
 use App\Http\Requests\AgendaRequest;
+use App\Repositories\AgendaRepositoryInterface;
 
 class AgendaService
 {
     protected $agendaRepository;
 
-    public function __construct(AgendaRepository $agendaRepository)
+    public function __construct(AgendaRepositoryInterface $agendaRepository)
     {
         $this->agendaRepository = $agendaRepository;
     }
